@@ -1,0 +1,11 @@
+C:\Users\Administrator\Documents\GitHub\BehaviorTree\bin\Debug\netcoreapp3.1\BehaviorTree.exe
+C:\Users\Administrator\Documents\GitHub\BehaviorTree\bin\Debug\netcoreapp3.1\BehaviorTree.deps.json
+C:\Users\Administrator\Documents\GitHub\BehaviorTree\bin\Debug\netcoreapp3.1\BehaviorTree.runtimeconfig.json
+C:\Users\Administrator\Documents\GitHub\BehaviorTree\bin\Debug\netcoreapp3.1\BehaviorTree.runtimeconfig.dev.json
+C:\Users\Administrator\Documents\GitHub\BehaviorTree\bin\Debug\netcoreapp3.1\BehaviorTree.dll
+C:\Users\Administrator\Documents\GitHub\BehaviorTree\bin\Debug\netcoreapp3.1\BehaviorTree.pdb
+C:\Users\Administrator\Documents\GitHub\BehaviorTree\obj\Debug\netcoreapp3.1\BehaviorTree.csprojAssemblyReference.cache
+C:\Users\Administrator\Documents\GitHub\BehaviorTree\obj\Debug\netcoreapp3.1\BehaviorTree.AssemblyInfoInputs.cache
+C:\Users\Administrator\Documents\GitHub\BehaviorTree\obj\Debug\netcoreapp3.1\BehaviorTree.AssemblyInfo.cs
+C:\Users\Administrator\Documents\GitHub\BehaviorTree\obj\Debug\netcoreapp3.1\BehaviorTree.dll
+C:\Users\Administrator\Documents\GitHub\BehaviorTree\obj\Debug\netcoreapp3.1\BehaviorTree.pdb
