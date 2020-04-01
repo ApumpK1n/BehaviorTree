@@ -4,6 +4,13 @@ using System;
 
 namespace MyBehavior{
 
+    public enum EBTStatus {
+        BT_INVALID,
+        BT_SUCCESS,
+        BT_FAILURE,
+        BT_RUNNING,
+    };
+
     public class BehaviorNode{
 
         protected bool m_bHasEvents;
