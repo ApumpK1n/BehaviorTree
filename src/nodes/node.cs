@@ -149,8 +149,8 @@ namespace MyBehavior{
             return false;
         }
 
-        protected virtual void load(){
-
+        protected virtual void load(string agentType){
+            
         }
     
         protected void load_properties(){
@@ -190,12 +190,5 @@ namespace MyBehavior{
 
     }
 
-    public class BehaviorTree : BehaviorNode {
-        
-        public string Name{ get; set;}
 
-        public string Domains{ get; set;}
-
-        
-    }
 }
