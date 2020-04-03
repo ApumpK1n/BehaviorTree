@@ -25,8 +25,8 @@ namespace MyBehavior{
         {
             if (s_instance != null)
             {
-                    (s_instance as Singleton<T>).UnInit();
-                    s_instance = (T)((object)null);
+                (s_instance as Singleton<T>).UnInit();
+                s_instance = (T)((object)null);
             }
         }
         public static T GetInstance()

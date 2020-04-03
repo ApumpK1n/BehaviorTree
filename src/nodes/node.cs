@@ -149,7 +149,7 @@ namespace MyBehavior{
             return false;
         }
 
-        protected virtual void load(string agentType){
+        protected virtual void load(string agentType, XmlNode node){
             
         }
     
