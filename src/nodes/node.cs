@@ -141,7 +141,7 @@ namespace MyBehavior{
 
         }
 
-        public virtual bool Evaluate(){
+        public virtual bool Evaluate(Agent pAgent){
             return false;
         }
 

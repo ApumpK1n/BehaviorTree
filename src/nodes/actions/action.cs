@@ -11,15 +11,15 @@ namespace MyBehavior
             EBTStatus result = EBTStatus.BT_SUCCESS;
             if (this.m_method != null){
                 if (this.m_resultOption != EBTStatus.BT_INVALID){
-                    this.m_method.run()
+                    this.m_method.run(pAgent);
+                    result = this.m_resultOption;
+                }
+                else{
+
                 }
             }
+            return result;
         }
-
-        // public EBTStatus Execute(EBTStatus childStatus){
-
-        // }
-
         
     }
 }
