@@ -125,7 +125,8 @@ namespace MyBehavior{
             }
         }
     
-        public virtual bool CheckPreconditions(){
+        public virtual bool CheckPreconditions(Agent pAgent, bool IsActive){
+            
             return true;
         }
 
