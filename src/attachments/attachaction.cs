@@ -9,13 +9,13 @@ namespace MyBehavior{
         }
 
         protected ActionConfig m_ActionConfig;
-        public override bool Evaluate(Agent pAgent){
-            bool bValid = this.m_ActionConfig.Execute((pAgent);
+        // public override bool Evaluate(Agent pAgent){
+        //     bool bValid = this.m_ActionConfig.Execute((pAgent);
 
-            if (!bValid){
-                EBTStatus childStatus = EBTStatus.BT_INVALID;
-            }
-            return bValid;
-        }
+        //     if (!bValid){
+        //         EBTStatus childStatus = EBTStatus.BT_INVALID;
+        //     }
+        //     return bValid;
+        // }
     }
 }
