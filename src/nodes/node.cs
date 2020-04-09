@@ -13,6 +13,20 @@ namespace MyBehavior{
 
     public class BehaviorNode{
 
+        public static string kStrBehavior = "Behavior";
+        public static string kStrNode = "Node";
+        public static string kStrAgentType = "Agenttype";
+        public static string kStrId = "Id";
+        public static string kStrPars = "pars";
+        public static string kStrPar = "par";
+        public static string kStrCustom = "custom";
+        public static string kStrProperty = "property";
+        public static string kStrAttachment = "attachment";
+        public static string kStrClass = "Class";
+        public static string kStrName = "Name";
+        public static string kStrType = "type";
+        public static string kStrValue = "value";
+        public static string kStrVersion = "Version";
         protected bool m_bHasEvents;
         protected List<BehaviorNode> m_children;
         protected List<BehaviorNode> m_preconditions;
@@ -168,9 +182,9 @@ namespace MyBehavior{
         }
 
         protected bool EvaluteCustomCondition(){
-            if (this.m_customCondition != null){
-                return this.m_customCondition.Evaluate();
-            }
+            // if (this.m_customCondition != null){
+            //     return this.m_customCondition.Evaluate();
+            // }
             return false;
         }
 
