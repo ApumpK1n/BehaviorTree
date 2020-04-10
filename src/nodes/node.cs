@@ -1,5 +1,6 @@
 
 using System.Collections.Generic;
+using System.Xml.Linq;
 using System;
 
 namespace MyBehavior{
@@ -27,6 +28,7 @@ namespace MyBehavior{
         public static string kStrType = "type";
         public static string kStrValue = "value";
         public static string kStrVersion = "Version";
+        public static string KStrConnector = "Connector";
         protected bool m_bHasEvents;
         protected List<BehaviorNode> m_children;
         protected List<BehaviorNode> m_preconditions;
@@ -45,6 +47,9 @@ namespace MyBehavior{
             E_BOTH
         };
 
+        private void SetClassName(string className){
+            this.m_className = className;
+        }
         public static bool Register<T> () where T: BehaviorNode
         {
             return true;
@@ -164,8 +169,26 @@ namespace MyBehavior{
             return false;
         }
 
-        protected virtual void load(string agentType, XmlNode node){
-            
+        public void load_properties_pars_attachments_children(string agentType, XElement parent){
+            this.SetAgentType(agentType);
+            foreach(XElement nodeEle in parent.Elements()){
+                string elementName = nodeEle.Name.LocalName;
+                if (elementName == KStrConnector){
+                    BehaviorNode pBehaviorNode = BehaviorNode.load(agentType, nodeEle);
+                    this.AddChild(pBehaviorNode);
+                }
+                Console.WriteLine(nodeEle.Name);
+            }
+        }
+
+        public static BehaviorNode load(string agentType, XElement ele){
+            foreach(XAttribute attr in ele.Attributes()){
+                string Name = attr.Name.LocalName;
+                if (Name == kStrClass) {
+                    .SetClassName(Name);
+                //if (Name == kStrId) node.Id = attr.Value;
+                }
+            }
         }
     
         protected void load_properties(){

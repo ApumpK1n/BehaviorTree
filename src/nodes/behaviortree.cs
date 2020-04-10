@@ -12,7 +12,6 @@ namespace MyBehavior{
 
         public bool load_xml(XDocument xDocument){
             XElement xmlBehavior = xDocument.Element(kStrBehavior);
-            Console.WriteLine(xDocument);
             if (xmlBehavior == null) {
                 return false;
             }
@@ -22,18 +21,11 @@ namespace MyBehavior{
                 if (Name == kStrVersion) this.Version = attr.Value;
             }
 
-            int Count = 0;
-            foreach(XElement ele in xmlBehavior.Elements()){
-                Console.WriteLine(ele.Name);
-                if (Count == 0) {
-                    Count += 1;
-                    this.ParseFirstNode(ele);
-                }
-                this.ParseChildren(ele, this);
-
-                break;
+            foreach (XElement treeEle in xmlBehavior.Elements())
+            {
+                this.ParseFirstNode(treeEle);
+                this.load_properties_pars_attachments_children(this.AgentType, treeEle);
             }
-
             return true;
         }
 
@@ -44,34 +36,6 @@ namespace MyBehavior{
                 if (Name == kStrClass) this.Name = attr.Value;
                 if (Name == kStrAgentType) this.AgentType = attr.Value;
             }
-
-        }
-
-        public void ParseChildren(XElement xmlEle, BehaviorNode parent){
-            foreach(XElement ele in xmlEle.Elements()){
-                string elmentName = ele.Name.LocalName;
-                if (elmentName == kStrNode){
-                    foreach(XAttribute attr in ele.Attributes()){
-                        string Name = attr.Name.LocalName;
-                        if (Name == kStrClass) node.ClassName = attr.Value;
-                        if (Name == kStrId) node.Id = attr.Value;
-                    }
-                    parent.AddNode(node);
-                }
-                else if (elmentName == kStrProperty){
-                    PropertyNode node = new PropertyNode(kStrProperty);
-                    foreach(XAttribute attr in ele.Attributes()){
-                        string Name = attr.Name.LocalName;
-                        if (Name == kStrClass) node.ClassName = attr.Value;
-                        if (Name == kStrId) node.Id = attr.Value;
-                    }
-                }
-                else{
-                    
-                }
-            }
-        }
-        public void load_properties_pars_attachments_children(string agentType, XmlNode node){
 
         }
     }
