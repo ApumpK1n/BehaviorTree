@@ -30,16 +30,16 @@ namespace MyBehavior{
         public static string kStrVersion = "Version";
         public static string KStrConnector = "Connector";
         protected bool m_bHasEvents;
-        protected List<BehaviorNode> m_children;
-        protected List<BehaviorNode> m_preconditions;
+        protected List<BehaviorNode> m_children = new List<BehaviorNode>();
+        protected List<BehaviorNode> m_preconditions = new List<BehaviorNode>();
         protected BehaviorNode m_parent;
         protected BehaviorNode m_customCondition;
 
         private string m_agentType;
         private string m_className;
         private Int16 m_id;
-        private List<BehaviorNode> m_effectors;
-        private List<BehaviorNode> m_events;
+        private List<BehaviorNode> m_effectors = new List<BehaviorNode>();
+        private List<BehaviorNode> m_events = new List<BehaviorNode>();
 
         public enum EPhase {
             E_SUCCESS,
@@ -173,22 +173,36 @@ namespace MyBehavior{
             this.SetAgentType(agentType);
             foreach(XElement nodeEle in parent.Elements()){
                 string elementName = nodeEle.Name.LocalName;
-                if (elementName == KStrConnector){
+                if (elementName == kStrNode){
                     BehaviorNode pBehaviorNode = BehaviorNode.load(agentType, nodeEle);
+                    Console.WriteLine(String.Format("ABehaviorNode {0}", pBehaviorNode.ToString()));
+                    Console.WriteLine(string.Format("parentNode, {0}", this.ToString()));
                     this.AddChild(pBehaviorNode);
                 }
-                Console.WriteLine(nodeEle.Name);
-            }
+                // if (StringUtils::StringEqual(c->name(), kStrAttachment)) {
+                //     bHasEvents |= this->load_attachment(version, agentType, bHasEvents, c);
+                
+                }
         }
 
         public static BehaviorNode load(string agentType, XElement ele){
-            foreach(XAttribute attr in ele.Attributes()){
-                string Name = attr.Name.LocalName;
-                if (Name == kStrClass) {
-                    .SetClassName(Name);
-                //if (Name == kStrId) node.Id = attr.Value;
-                }
+            XAttribute attr = ele.Attribute(kStrClass);
+            string className = attr.Value;
+            BehaviorNode pBehaviorNode = Factory.Create(className);
+            if (pBehaviorNode == null) {
+                Console.WriteLine(String.Format("invalid node class {0} /n" , className));
             }
+            Console.WriteLine(pBehaviorNode.ToString());
+            pBehaviorNode.SetClassName(className);
+            pBehaviorNode.load_properties_pars_attachments_children(agentType, ele);
+            return pBehaviorNode;
+            // foreach(XAttribute attr in ele.Attributes()){
+            //     string Name = attr.Name.LocalName;
+            //     if (Name == kStrClass) {
+            //         .SetClassName(Name);
+            //     //if (Name == kStrId) node.Id = attr.Value;
+            //     }
+            // }
         }
     
         protected void load_properties(){
@@ -196,8 +210,10 @@ namespace MyBehavior{
         }
 
         protected virtual void AddChild(BehaviorNode pChild){
-            pChild.m_parent = this;
-            this.m_children.Add(pChild);
+            if (pChild != null){
+                pChild.m_parent = this;
+                this.m_children.Add(pChild);
+            }
         }
 
         protected void SetAgentType(string agentType){
