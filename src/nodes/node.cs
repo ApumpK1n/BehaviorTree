@@ -1,5 +1,6 @@
 
 using System.Collections.Generic;
+using System.Xml.Linq;
 using System;
 
 namespace MyBehavior{
@@ -13,17 +14,32 @@ namespace MyBehavior{
 
     public class BehaviorNode{
 
+        public static string kStrBehavior = "Behavior";
+        public static string kStrNode = "Node";
+        public static string kStrAgentType = "Agenttype";
+        public static string kStrId = "Id";
+        public static string kStrPars = "pars";
+        public static string kStrPar = "par";
+        public static string kStrCustom = "custom";
+        public static string kStrProperty = "property";
+        public static string kStrAttachment = "attachment";
+        public static string kStrClass = "Class";
+        public static string kStrName = "Name";
+        public static string kStrType = "type";
+        public static string kStrValue = "value";
+        public static string kStrVersion = "Version";
+        public static string KStrConnector = "Connector";
         protected bool m_bHasEvents;
-        protected List<BehaviorNode> m_children;
-        protected List<BehaviorNode> m_preconditions;
+        protected List<BehaviorNode> m_children = new List<BehaviorNode>();
+        protected List<BehaviorNode> m_preconditions = new List<BehaviorNode>();
         protected BehaviorNode m_parent;
         protected BehaviorNode m_customCondition;
 
         private string m_agentType;
         private string m_className;
         private Int16 m_id;
-        private List<BehaviorNode> m_effectors;
-        private List<BehaviorNode> m_events;
+        private List<BehaviorNode> m_effectors = new List<BehaviorNode>();
+        private List<BehaviorNode> m_events = new List<BehaviorNode>();
 
         public enum EPhase {
             E_SUCCESS,
@@ -31,6 +47,9 @@ namespace MyBehavior{
             E_BOTH
         };
 
+        private void SetClassName(string className){
+            this.m_className = className;
+        }
         public static bool Register<T> () where T: BehaviorNode
         {
             return true;
@@ -150,8 +169,40 @@ namespace MyBehavior{
             return false;
         }
 
-        protected virtual void load(string agentType, XmlNode node){
-            
+        public void load_properties_pars_attachments_children(string agentType, XElement parent){
+            this.SetAgentType(agentType);
+            foreach(XElement nodeEle in parent.Elements()){
+                string elementName = nodeEle.Name.LocalName;
+                if (elementName == kStrNode){
+                    BehaviorNode pBehaviorNode = BehaviorNode.load(agentType, nodeEle);
+                    Console.WriteLine(String.Format("ABehaviorNode {0}", pBehaviorNode.ToString()));
+                    Console.WriteLine(string.Format("parentNode, {0}", this.ToString()));
+                    this.AddChild(pBehaviorNode);
+                }
+                // if (StringUtils::StringEqual(c->name(), kStrAttachment)) {
+                //     bHasEvents |= this->load_attachment(version, agentType, bHasEvents, c);
+                
+                }
+        }
+
+        public static BehaviorNode load(string agentType, XElement ele){
+            XAttribute attr = ele.Attribute(kStrClass);
+            string className = attr.Value;
+            BehaviorNode pBehaviorNode = Factory.Create(className);
+            if (pBehaviorNode == null) {
+                Console.WriteLine(String.Format("invalid node class {0} /n" , className));
+            }
+            Console.WriteLine(pBehaviorNode.ToString());
+            pBehaviorNode.SetClassName(className);
+            pBehaviorNode.load_properties_pars_attachments_children(agentType, ele);
+            return pBehaviorNode;
+            // foreach(XAttribute attr in ele.Attributes()){
+            //     string Name = attr.Name.LocalName;
+            //     if (Name == kStrClass) {
+            //         .SetClassName(Name);
+            //     //if (Name == kStrId) node.Id = attr.Value;
+            //     }
+            // }
         }
     
         protected void load_properties(){
@@ -159,8 +210,10 @@ namespace MyBehavior{
         }
 
         protected virtual void AddChild(BehaviorNode pChild){
-            pChild.m_parent = this;
-            this.m_children.Add(pChild);
+            if (pChild != null){
+                pChild.m_parent = this;
+                this.m_children.Add(pChild);
+            }
         }
 
         protected void SetAgentType(string agentType){
@@ -168,9 +221,9 @@ namespace MyBehavior{
         }
 
         protected bool EvaluteCustomCondition(){
-            if (this.m_customCondition != null){
-                return this.m_customCondition.Evaluate();
-            }
+            // if (this.m_customCondition != null){
+            //     return this.m_customCondition.Evaluate();
+            // }
             return false;
         }
 

@@ -6,38 +6,57 @@ using System.Collections.Generic;
 namespace MyBehavior{
     
     public class Xml{
-        static string kStrBehavior = "Behavior";
-        static string kStrAgentType = "Agenttype";
-        static string kStrId = "Id";
-        static string kStrPars = "Pars";
-        static string kStrPar = "Par";
-        static string kStrNode = "Node";
-        static string kStrCustom = "Custom";
-        static string kStrProperty = "Property";
-        static string kStrAttachment = "Attachment";
-        static string kStrClass = "Class";
-        static string kStrName = "Name";
-        static string kStrType = "Type";
-        static string kStrValue = "Value";
+        public static string kStrBehavior = "Behavior";
+        public static string kStrNode = "Node";
+        public static string kStrAgentType = "Agenttype";
+        public static string kStrId = "id";
+        public static string kStrPars = "pars";
+        public static string kStrPar = "par";
+        public static string kStrCustom = "custom";
+        public static string kStrProperty = "property";
+        public static string kStrAttachment = "attachment";
+        public static string kStrClass = "class";
+        public static string kStrName = "name";
+        public static string kStrType = "type";
+        public static string kStrValue = "value";
     // static const char* kEventParam = "eventParam";
-        static string kStrVersion = "Version";
+        public static string kStrVersion = "version";
         public static void LoadXml(string relativepath){
             XDocument document = XDocument.Load(relativepath);
-            //获取到XML的根元素进行操作
-            XElement root= document.Root;
-            XmlTree xmlTree = new XmlTree();
+            XElement xmlBehavior = document.Element(kStrBehavior);
             RootNode rootNode = new RootNode(kStrBehavior);
-            foreach(XElement ele in root.Elements()){
-                XmlNode node;
-               if (ele.Name == kStrNode){
-                   node = new NodeNode(kStrNode);
-               }
-               else{
-                   node = null;
-               }
+            foreach(XAttribute attr in xmlBehavior.Attributes()){
+                string Name = attr.Name.LocalName;
+                if (Name == kStrName) rootNode.Name = attr.Value;
+                if (Name == kStrAgentType) rootNode.Agenttype = attr.Value;
+            }
+            ParseNode(xmlBehavior, rootNode);
+        }
 
-
-               rootNode.AddNode(node);
+        public static void ParseNode(XElement xmlEle, XmlNode parent){
+            foreach(XElement ele in xmlEle.Elements()){
+                string elmentName = ele.Name.LocalName;
+                if (elmentName == kStrNode){
+                    NodeNode node = new NodeNode(kStrNode);
+                    foreach(XAttribute attr in ele.Attributes()){
+                        string Name = attr.Name.LocalName;
+                        if (Name == kStrClass) node.ClassName = attr.Value;
+                        if (Name == kStrId) node.Id = attr.Value;
+                    }
+                    ParseNode(ele, node);
+                    parent.AddNode(node);
+                }
+                else if (elmentName == kStrProperty){
+                    PropertyNode node = new PropertyNode(kStrProperty);
+                    foreach(XAttribute attr in ele.Attributes()){
+                        string Name = attr.Name.LocalName;
+                        if (Name == kStrClass) node.ClassName = attr.Value;
+                        if (Name == kStrId) node.Id = attr.Value;
+                    }
+                }
+                else{
+                    
+                }
             }
         }
     }

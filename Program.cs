@@ -7,8 +7,9 @@ namespace MyBehavior
         static void Main(string[] args)
         {
             Console.WriteLine("Hello World!");
-            string path = "C:/Users/Administrator/Documents/GitHub/BehaviorTree/test/test.xml";
-            Xml.LoadXml(path);
+            string path = "C:\\Users\\Administrator\\Documents\\GitHub\\BehaviorTree\\test\\FirstBT.xml";
+            // Xml.LoadXml(path);
+            Workspace.GetInstance().Load(path);
         }
     }
 }
