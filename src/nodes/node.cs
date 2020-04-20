@@ -29,6 +29,7 @@ namespace MyBehavior{
         public static string kStrValue = "value";
         public static string kStrVersion = "Version";
         public static string KStrConnector = "Connector";
+        public static string KStrMethod = "Method";
         protected bool m_bHasEvents;
         protected List<BehaviorNode> m_children = new List<BehaviorNode>();
         protected List<BehaviorNode> m_preconditions = new List<BehaviorNode>();
@@ -169,7 +170,7 @@ namespace MyBehavior{
             return false;
         }
 
-        public void load_properties_pars_attachments_children(string agentType, XElement parent){
+        public void load_children(string agentType, XElement parent){ // elementChild
             this.SetAgentType(agentType);
             foreach(XElement nodeEle in parent.Elements()){
                 string elementName = nodeEle.Name.LocalName;
@@ -185,6 +186,10 @@ namespace MyBehavior{
                 }
         }
 
+        protected virtual void loadMethod(string methodStr){
+
+        }
+
         public static BehaviorNode load(string agentType, XElement ele){
             XAttribute attr = ele.Attribute(kStrClass);
             string className = attr.Value;
@@ -194,7 +199,8 @@ namespace MyBehavior{
             }
             Console.WriteLine(pBehaviorNode.ToString());
             pBehaviorNode.SetClassName(className);
-            pBehaviorNode.load_properties_pars_attachments_children(agentType, ele);
+            pBehaviorNode.load_properties(ele);
+            pBehaviorNode.load_children(agentType, ele);
             return pBehaviorNode;
             // foreach(XAttribute attr in ele.Attributes()){
             //     string Name = attr.Name.LocalName;
@@ -205,8 +211,12 @@ namespace MyBehavior{
             // }
         }
     
-        protected void load_properties(){
-
+        protected void load_properties(XElement eleNode){
+            foreach(XAttribute attr in eleNode.Attributes()){
+                if (attr.Name.LocalName == KStrMethod){
+                    this.loadMethod(attr.Value);
+                }
+            }
         }
 
         protected virtual void AddChild(BehaviorNode pChild){

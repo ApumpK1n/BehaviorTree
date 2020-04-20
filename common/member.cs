@@ -1,4 +1,4 @@
-
+using Newtonsoft.Json;
 
 namespace MyBehavior{
 
@@ -19,6 +19,13 @@ namespace MyBehavior{
         }
 
         public virtual void run(Agent agent) {
+        }
+
+        public IInstanceMember CloneJson()
+        {
+            // Don't serialize a null object, simply return the default for that object
+            var deserializeSettings = new JsonSerializerSettings {ObjectCreationHandling = ObjectCreationHandling.Replace};
+            return JsonConvert.DeserializeObject<IInstanceMember>(JsonConvert.SerializeObject(this), deserializeSettings);
         }
     }
 }

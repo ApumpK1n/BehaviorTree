@@ -24,7 +24,7 @@ namespace MyBehavior{
             foreach (XElement treeEle in xmlBehavior.Elements())
             {
                 this.ParseFirstNode(treeEle);
-                this.load_properties_pars_attachments_children(this.AgentType, treeEle);
+                this.load_children(this.AgentType, treeEle);
             }
             return true;
         }

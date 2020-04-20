@@ -7,6 +7,10 @@ namespace MyBehavior
         protected IInstanceMember m_method;
         protected EBTStatus m_resultOption;
         
+        protected override void loadMethod(string methodStr){
+            this.m_method = AgentMeta.ParseMethod(methodStr);
+            
+        }
         public EBTStatus Execute(Agent pAgent, EBTStatus childStatus){
             EBTStatus result = EBTStatus.BT_SUCCESS;
             if (this.m_method != null){
