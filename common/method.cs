@@ -16,8 +16,7 @@ namespace MyBehavior{
 
     public class CAgentMethodVoid : CAgentMethodVoidBase{
         System.Action<Agent> _run;
-
-        CAgentMethodVoid(System.Action<Agent> runMethod){
+        public CAgentMethodVoid(System.Action<Agent> runMethod){
             this._run = runMethod;
         }
         public override void run(Agent agent){

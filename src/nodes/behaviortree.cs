@@ -34,7 +34,9 @@ namespace MyBehavior{
             foreach(XAttribute attr in ele.Attributes()){
                 string Name = attr.Name.LocalName;
                 if (Name == kStrClass) this.Name = attr.Value;
-                if (Name == kStrAgentType) this.AgentType = attr.Value;
+                if (Name == kStrAgentType) {
+                    this.AgentType = attr.Value;
+                }
             }
 
         }

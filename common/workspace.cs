@@ -14,29 +14,39 @@ namespace MyBehavior{
             EFF_default = EFF_xml | EFF_bson | EFF_cpp	//first try to use xml, if xml file doesn't exist, it tries the bson, then tries cpp
         };
 
+        private bool m_bInited = false;
+        private bool m_bRegistered = false; 
         private EFileFormat m_fileFormat = EFileFormat.EFF_xml;
         private Dictionary<string, BehaviorTree> m_behaviortrees = new Dictionary<string, BehaviorTree>();
+        private Dictionary<string, Agent> m_Agents = new Dictionary<string, Agent>();
         private string m_szWorkspaceExportPath;
-        public bool Load(string relativePath, bool bForce = false){
+
+        public void AddAgent(string agentName, Agent agent)
+        {
+            if (agent != null)
+            {
+                this.m_Agents[agentName] = agent;
+            }
             
+        }
+
+        public bool TryInit(){
+            return true;
+
+        }
+
+        public bool Load(string relativePath, bool bForce = false){
+
             if (!this.IsValidPath(relativePath)) return false;
+
+            TryInit();
 
             BehaviorTree pBT = null;
 
             string fullpath = relativePath; // TODO：完整路径，先这样写
             EFileFormat f = this.GetFileFormat();
-            // switch (f) {
-            //     case EFileFormat.EFF_default: {
-            //         fullpath = fullpath + ".xml";
-            //     }
-            //     break;
-
-            // }
             bool bLoadResult = false;
-            bool bNewly = false;
             if (pBT == null) {
-            //in case of circular referencebehavior
-                bNewly = true;
                 pBT = new BehaviorTree();
                 m_behaviortrees[relativePath] = pBT;
             }
@@ -99,6 +109,10 @@ namespace MyBehavior{
 
         public void SetFileFormat(EFileFormat ff) {
             this.m_fileFormat = ff;
+        }
+
+        public void Update(){
+            for 
         }
     }
 }

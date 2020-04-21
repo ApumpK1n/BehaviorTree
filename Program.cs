@@ -10,6 +10,8 @@ namespace MyBehavior
             string path = "C:\\Users\\Administrator\\Documents\\GitHub\\BehaviorTree\\test\\FirstBT.xml";
             // Xml.LoadXml(path);
             Workspace.GetInstance().Load(path);
+            Agent firstAgent = new FirstAgent();
+            firstAgent
         }
     }
 }

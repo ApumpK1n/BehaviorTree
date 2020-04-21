@@ -8,6 +8,22 @@ namespace MyBehavior{
 
         private Dictionary<string, IInstanceMember> _methods = new Dictionary<string, IInstanceMember>();
         public static Dictionary<string, AgentMeta> agentMetas = new Dictionary<string, AgentMeta>();
+
+        private static BehaviorLoader _behaviorLoader;
+        public AgentMeta(){
+
+        }
+        public static void Register(){
+            const string kLoaderClass = "MyBehavior.BehaviorLoaderImplement";
+            Type loaderType = Type.GetType(kLoaderClass);
+            if (loaderType != null)
+            {
+                _behaviorLoader = (BehaviorLoader)Activator.CreateInstance(loaderType);
+                _behaviorLoader.Load();
+            }
+
+        }
+
         public void RegisterMethod(string methodName, IInstanceMember method){
             _methods.Add(methodName, method);
         }
