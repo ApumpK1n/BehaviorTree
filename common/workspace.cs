@@ -1,4 +1,5 @@
 
+using System;
 using System.Collections.Generic;
 using System.Xml.Linq;
 
@@ -23,6 +24,7 @@ namespace MyBehavior{
 
         public void AddAgent(string agentName, Agent agent)
         {
+            Console.WriteLine("AddAgent" + agentName);
             if (agent != null)
             {
                 this.m_Agents[agentName] = agent;
@@ -111,8 +113,32 @@ namespace MyBehavior{
             this.m_fileFormat = ff;
         }
 
+        public BehaviorTreeTask CreateBehaviorTreeTask(string relativePath){
+            BehaviorTree bt = null;
+            if (this.m_behaviortrees.ContainsKey(relativePath)){
+                bt = this.m_behaviortrees[relativePath];
+            }
+            else{
+                bool bOk = this.Load(relativePath);
+                if (bOk){
+                    bt = this.m_behaviortrees[relativePath];
+                }
+            }
+            BehaviorTreeTask behaviorTask = null;
+            if (bt != null){
+                behaviorTask = (BehaviorTreeTask)bt.CreateAndInitTask();
+            }
+            return behaviorTask;
+        }
+
+        /// <summary>
+        /// Loop for per frame.
+        /// </summary>
         public void Update(){
-            for 
+
+            foreach(Agent agent in this.m_Agents.Values){
+                agent.btExec();
+            }
         }
     }
 }

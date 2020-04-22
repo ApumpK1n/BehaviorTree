@@ -1,4 +1,4 @@
-
+using System;
 
 namespace MyBehavior
 {
@@ -12,6 +12,7 @@ namespace MyBehavior
             
         }
         public EBTStatus Execute(Agent pAgent, EBTStatus childStatus){
+            Console.WriteLine("ActionExecute");
             EBTStatus result = EBTStatus.BT_SUCCESS;
             if (this.m_method != null){
                 if (this.m_resultOption != EBTStatus.BT_INVALID){
@@ -25,5 +26,15 @@ namespace MyBehavior
             return result;
         }
         
+    }
+
+    public class ActionTask : BehaviorTask{
+
+        public override EBTStatus update(Agent pAgent, EBTStatus childStatus){
+            Console.WriteLine("ActionTaskUpdate");
+            Action pActionNode = (Action)this.GetNode();
+            EBTStatus result = pActionNode.Execute(pAgent, childStatus);
+            return result;
+        }
     }
 }

@@ -242,9 +242,16 @@ namespace MyBehavior{
         }
 
 
-        // private virtual BehaviorTask CreateTask(){
+        public virtual BehaviorTask CreateTask(){
+            BehaviorTask pBehaviorTask = new BehaviorTask();
+            return pBehaviorTask;
+        }
 
-        // }
+        public BehaviorTask CreateAndInitTask(){
+            BehaviorTask pTask = this.CreateTask();
+            pTask.Init(this);
+            return pTask;
+        }
 
     }
 

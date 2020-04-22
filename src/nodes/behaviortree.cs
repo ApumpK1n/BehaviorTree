@@ -38,7 +38,35 @@ namespace MyBehavior{
                     this.AgentType = attr.Value;
                 }
             }
+        }
+    }
 
+    public class BehaviorTreeTask : BehaviorTask{
+        
+        private BehaviorTask m_root = null;
+        public override void Init(BehaviorNode node){
+            base.Init(node);
+
+            int childrenCount = node.GetChildrenCount();
+
+            if (childrenCount == 1)
+            {
+                BehaviorNode childNode = node.GetChildByIndex(0);
+                BehaviorTask childTask = childNode.CreateAndInitTask();
+
+                this.AddChild(childTask);
+            }
+        }
+
+        public override void AddChild(BehaviorTask pTask){
+            pTask.SetParent(this);
+            this.m_root = pTask;
+        }
+        
+        public override EBTStatus update(Agent pAgent, EBTStatus childStatus){
+            if (this.m_root == null) return EBTStatus.BT_FAILURE;
+            EBTStatus result = this.m_root.exec(pAgent, childStatus);
+            return result;
         }
     }
 }

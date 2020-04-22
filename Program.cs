@@ -7,11 +7,11 @@ namespace MyBehavior
         static void Main(string[] args)
         {
             Console.WriteLine("Hello World!");
-            string path = "C:\\Users\\Administrator\\Documents\\GitHub\\BehaviorTree\\test\\FirstBT.xml";
+            string path = "C:\\Users\\Administrator\\Documents\\GitHub\\BehaviorTree\\test\\SecondBT.xml";
             // Xml.LoadXml(path);
-            Workspace.GetInstance().Load(path);
             Agent firstAgent = new FirstAgent();
-            firstAgent
+            firstAgent.SetCurrentBT(path);
+            Workspace.GetInstance().Update();
         }
     }
 }
