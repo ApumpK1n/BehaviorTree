@@ -51,6 +51,10 @@ namespace MyBehavior{
         private void SetClassName(string className){
             this.m_className = className;
         }
+
+        public string GetClassName(){
+            return this.m_className;
+        }
         public static bool Register<T> () where T: BehaviorNode
         {
             return true;

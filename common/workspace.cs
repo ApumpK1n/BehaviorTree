@@ -33,11 +33,13 @@ namespace MyBehavior{
         }
 
         public bool TryInit(){
+            AgentMeta.Register();
             return true;
 
         }
 
         public bool Load(string relativePath, bool bForce = false){
+            Console.WriteLine("Load");
 
             if (!this.IsValidPath(relativePath)) return false;
 

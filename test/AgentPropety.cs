@@ -8,6 +8,8 @@ namespace MyBehavior
 
         public override bool Load(){
             
+
+            Console.WriteLine("LOoooooooooooooad");
             // FirstAgent
             AgentMeta meta = new AgentMeta();
             AgentMeta.agentMetas["FirstAgent"] = meta;

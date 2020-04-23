@@ -39,7 +39,6 @@ namespace MyBehavior{
         private EBTStatus _btExec(){
             if (this.m_currentBT == null) return EBTStatus.BT_INVALID;
             EBTStatus status = this.m_currentBT.exec(this);
-            Console.WriteLine("_btExec");
             return status;
         }
     }

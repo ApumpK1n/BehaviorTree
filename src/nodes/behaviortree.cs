@@ -39,6 +39,12 @@ namespace MyBehavior{
                 }
             }
         }
+
+        public override BehaviorTask CreateTask(){
+            Console.WriteLine("CreateTask");
+            BehaviorTask pBehaviorTask = new BehaviorTreeTask();
+            return pBehaviorTask;
+        }
     }
 
     public class BehaviorTreeTask : BehaviorTask{
@@ -48,23 +54,25 @@ namespace MyBehavior{
             base.Init(node);
 
             int childrenCount = node.GetChildrenCount();
-
+            Console.WriteLine("Init" + childrenCount);
             if (childrenCount == 1)
             {
                 BehaviorNode childNode = node.GetChildByIndex(0);
                 BehaviorTask childTask = childNode.CreateAndInitTask();
-
+                
                 this.AddChild(childTask);
             }
         }
 
         public override void AddChild(BehaviorTask pTask){
+            Console.WriteLine("AddChild");
             pTask.SetParent(this);
             this.m_root = pTask;
         }
         
         public override EBTStatus update(Agent pAgent, EBTStatus childStatus){
             if (this.m_root == null) return EBTStatus.BT_FAILURE;
+            Console.WriteLine("BehaviorTreeUpdate");
             EBTStatus result = this.m_root.exec(pAgent, childStatus);
             return result;
         }
