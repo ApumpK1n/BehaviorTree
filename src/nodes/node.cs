@@ -150,7 +150,19 @@ namespace MyBehavior{
         }
     
         public virtual bool CheckPreconditions(Agent pAgent, bool IsActive){
-            
+            if (this.m_preconditions.Count == 0)
+            {
+                return true;
+            }
+            for (int i = 0; i < this.m_preconditions.Count; i++)
+            {
+                Precondition pCondition = (Precondition)this.m_preconditions[i];
+                if (pCondition != null)
+                {
+                    EPhase ph = pCondition.GetEPhase();
+
+                }
+            }
             return true;
         }
 

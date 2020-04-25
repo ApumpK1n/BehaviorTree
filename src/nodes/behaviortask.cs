@@ -31,7 +31,44 @@ namespace MyBehavior{
             return this.exec(pAgent, childStatus);
         }
         public EBTStatus exec(Agent pAgent, EBTStatus childStatus){
-            return this.UpdateCurrent(pAgent, childStatus);
+            bool bEnterResult = false;
+
+            if (this.m_status == EBTStatus.BT_RUNNING) {
+                bEnterResult = true;
+            } else {
+                //reset it to invalid when it was success/failure
+                this.m_status = EBTStatus.BT_INVALID;
+
+                bEnterResult = this.onEnterAction(pAgent);
+            }
+            if (bEnterResult){
+                this.m_status =  this.UpdateCurrent(pAgent, childStatus);
+            }
+            
+            return this.m_status;
+        }
+
+        private bool onEnterAction(Agent pAgent)
+        {
+            bool bResult = this.CheckPreconditions(pAgent, false);
+            if (bResult)
+            {
+                bResult = this.onEnter(pAgent);
+            }
+            return bResult;
+        }
+
+        protected virtual bool onEnter(Agent pAgent)
+        {
+            return true;
+        }
+
+        private bool CheckPreconditions(Agent pAgent, bool bIsActive){
+            bool bResult = true;
+            if (this.m_node != null){
+                bResult = this.m_node.CheckPreconditions(pAgent, bIsActive);
+            }
+            return bResult;
         }
 
         public EBTStatus UpdateCurrent(Agent pAgent, EBTStatus childStatus){
