@@ -149,7 +149,9 @@ namespace MyBehavior{
             }
         }
     
-        public virtual bool CheckPreconditions(Agent pAgent, bool IsActive){
+        public virtual bool CheckPreconditions(Agent pAgent, bool bIsActive){
+            Precondition.EPhase phase = bIsActive ? Precondition.EPhase.E_UPDATE : Precondition.EPhase.E_ENTER;
+
             if (this.m_preconditions.Count == 0)
             {
                 return true;
@@ -159,8 +161,12 @@ namespace MyBehavior{
                 Precondition pCondition = (Precondition)this.m_preconditions[i];
                 if (pCondition != null)
                 {
-                    EPhase ph = pCondition.GetEPhase();
-
+                    Precondition.EPhase ph = pCondition.GetEPhase();
+                    if (ph == Precondition.EPhase.E_BOTH || ph == phase)
+                    {
+                        bool taskBoolean = pCondition.Evaluate(pAgent);
+                        return taskBoolean;
+                    }
                 }
             }
             return true;

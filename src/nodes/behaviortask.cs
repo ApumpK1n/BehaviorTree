@@ -39,7 +39,7 @@ namespace MyBehavior{
                 //reset it to invalid when it was success/failure
                 this.m_status = EBTStatus.BT_INVALID;
 
-                bEnterResult = this.onEnterAction(pAgent);
+                bEnterResult = this.CanEnterAction(pAgent);
             }
             if (bEnterResult){
                 this.m_status =  this.UpdateCurrent(pAgent, childStatus);
@@ -48,7 +48,7 @@ namespace MyBehavior{
             return this.m_status;
         }
 
-        private bool onEnterAction(Agent pAgent)
+        private bool CanEnterAction(Agent pAgent)
         {
             bool bResult = this.CheckPreconditions(pAgent, false);
             if (bResult)
