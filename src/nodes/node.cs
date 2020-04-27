@@ -238,7 +238,14 @@ namespace MyBehavior{
                 if (attr.Name.LocalName == KStrMethod){
                     this.loadMethod(attr.Value);
                 }
+                else{
+                    this.loadProperties(attr);
+                }
             }
+        }
+
+        protected virtual void loadProperties(XAttribute attr){
+
         }
 
         protected virtual void AddChild(BehaviorNode pChild){

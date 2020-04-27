@@ -39,16 +39,26 @@ namespace MyBehavior{
                 //reset it to invalid when it was success/failure
                 this.m_status = EBTStatus.BT_INVALID;
 
-                bEnterResult = this.CanEnterAction(pAgent);
+                bEnterResult = this.onEnterAction(pAgent);
             }
             if (bEnterResult){
-                this.m_status =  this.UpdateCurrent(pAgent, childStatus);
+                this.m_status = this.UpdateCurrent(pAgent, childStatus);
+                if (this.m_status != EBTStatus.BT_RUNNING)
+                {
+                    this.onExitAction(pAgent, this.m_status);
+                }
+            } 
+            else{
+                this.m_status = EBTStatus.BT_FAILURE;
             }
             
             return this.m_status;
         }
 
-        private bool CanEnterAction(Agent pAgent)
+        /// <summary>
+        /// for doing something before enter action.
+        /// </summary>
+        private bool onEnterAction(Agent pAgent)
         {
             bool bResult = this.CheckPreconditions(pAgent, false);
             if (bResult)
@@ -70,6 +80,24 @@ namespace MyBehavior{
             }
             return bResult;
         }
+
+        /// <summary>
+        /// for doing something after exit action.
+        /// </summary>
+        private void onExitAction(Agent pAgent, EBTStatus status)
+        {
+            this.onExit(pAgent, status);
+            if (this.m_node != null) 
+            {
+
+            }
+        }
+
+        public virtual void onExit(Agent pAgent, EBTStatus status)
+        {
+
+        }
+
 
         public EBTStatus UpdateCurrent(Agent pAgent, EBTStatus childStatus){
             EBTStatus s = this.update(pAgent, childStatus);
