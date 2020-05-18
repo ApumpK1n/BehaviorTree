@@ -13,6 +13,7 @@ namespace MyBehavior
             this.m_method = AgentMeta.ParseMethod(methodStr);
             
         }
+
         public EBTStatus Execute(Agent pAgent, EBTStatus childStatus)
         {
             Console.WriteLine("ActionExecute");
@@ -24,7 +25,7 @@ namespace MyBehavior
                     result = this.m_resultOption;
                 }
                 else{
-
+                    
                 }
             }
             return result;

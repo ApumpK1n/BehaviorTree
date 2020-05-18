@@ -20,5 +20,7 @@ namespace MyBehavior{
 
         public virtual void run(Agent agent) {
         }
+
+        public virtual void SetValueCast(Agent pAgent, )
     }
 }
