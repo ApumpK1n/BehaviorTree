@@ -1,4 +1,5 @@
 
+using System;
 
 namespace MyBehavior
 {
@@ -10,23 +11,8 @@ namespace MyBehavior
             E_UPDATE,
             E_BOTH
         }
-        enum EOperatorType {
-            E_INVALID,
-            E_ASSIGN,        // =
-            E_ADD,           // +
-            E_SUB,           // -
-            E_MUL,           // *
-            E_DIV,           // /
-            E_EQUAL,         // ==
-            E_NOTEQUAL,      // !=
-            E_GREATER,       // >
-            E_LESS,          // <
-            E_GREATEREQUAL,  // >=
-            E_LESSEQUAL      // <=
-        };
 
         private IInstanceMember m_method;
-        private EOperatorType m_operator = EOperatorType.E_INVALID;
         public EPhase GetEPhase(){
 
             return EPhase.E_ENTER;
@@ -39,14 +25,11 @@ namespace MyBehavior
         }
 
         protected override bool Execute(Agent pAgent){
-            bool bValid = false;
-            if (this.m_method != null && this.m_operator == EOperatorType.E_INVALID){
-                this.m_method.run(pAgent);
-                bValid = true;
+            bool bValid = true;
+            if (this.m_method != null){
+                bValid = this.m_method.run(pAgent, ref bValid);
             }
-            else if (this.m_operator == EOperatorType.E_ASSIGN){
-                
-            }
+            return bValid;
         }
     }
 
