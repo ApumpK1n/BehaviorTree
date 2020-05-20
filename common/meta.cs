@@ -66,10 +66,7 @@ namespace MyBehavior{
             }
             string methodName = AgentMeta.ParseMethodName(valueStr);
             string agentName = AgentMeta.ParseAgentName(valueStr);
-            Console.WriteLine("methodName:" + methodName);
-            Console.WriteLine("agentName:" + agentName);
             AgentMeta meta = AgentMeta.GetMeta(agentName);
-            Console.WriteLine("meta:", meta);
             if (meta != null){
                 IInstanceMember method = meta.GetMethod(methodName);
                 if (method != null) {

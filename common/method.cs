@@ -12,7 +12,8 @@ namespace MyBehavior{
             
         }
 
-        public override void run(Agent agent, bool bValid){
+        public override bool runBool(Agent agent){
+            return true;
         }
     }
 
@@ -28,12 +29,12 @@ namespace MyBehavior{
     }
 
     public class CAgentMethodBool : CAgentMethodVoidBase{
-        System.Action<Agent, bool> _run;
-        public CAgentMethodBool(System.Action<Agent, bool> runMethod){
+        System.Func<Agent, bool> _run;
+        public CAgentMethodBool(System.Func<Agent, bool> runMethod){
             this._run = runMethod;
         }
-        public override void run(Agent agent, bool bValid){
-            this._run(agent, bValid);
+        public override bool runBool(Agent agent){
+            return this._run(agent);
         }
     }
 }

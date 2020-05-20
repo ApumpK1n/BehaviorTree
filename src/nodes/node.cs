@@ -30,6 +30,7 @@ namespace MyBehavior{
         public static string kStrVersion = "Version";
         public static string KStrConnector = "Connector";
         public static string KStrMethod = "Method";
+        public static string kStrFlag = "flag";
         protected bool m_bHasEvents;
         protected List<BehaviorNode> m_children = new List<BehaviorNode>();
         protected List<BehaviorNode> m_preconditions = new List<BehaviorNode>();
@@ -82,9 +83,6 @@ namespace MyBehavior{
 
         // }
 
-        // public BehaviorTask CreateAndInitTask(){
-            
-        // }
 
         public bool HasEvents(){
             return this.m_bHasEvents;
@@ -151,7 +149,7 @@ namespace MyBehavior{
     
         public virtual bool CheckPreconditions(Agent pAgent, bool bIsActive){
             Precondition.EPhase phase = bIsActive ? Precondition.EPhase.E_UPDATE : Precondition.EPhase.E_ENTER;
-
+            
             if (this.m_preconditions.Count == 0)
             {
                 return true;
@@ -159,6 +157,7 @@ namespace MyBehavior{
             for (int i = 0; i < this.m_preconditions.Count; i++)
             {
                 Precondition pCondition = (Precondition)this.m_preconditions[i];
+
                 if (pCondition != null)
                 {
                     Precondition.EPhase ph = pCondition.GetEPhase();
@@ -180,10 +179,6 @@ namespace MyBehavior{
             return true;
         }
 
-        public virtual void Attach(){
-
-        }
-
         public virtual bool Evaluate(Agent pAgent){
             return false;
         }
@@ -192,20 +187,42 @@ namespace MyBehavior{
             return false;
         }
 
-        public void load_children(string agentType, XElement parent){ // elementChild
-            this.SetAgentType(agentType);
+        protected void load_properties_attachment_children(bool bNode, string agentType, XElement parent){
             foreach(XElement nodeEle in parent.Elements()){
                 string elementName = nodeEle.Name.LocalName;
-                if (elementName == kStrNode){
+                if (elementName == kStrNode && bNode){
                     BehaviorNode pBehaviorNode = BehaviorNode.load(agentType, nodeEle);
-                    Console.WriteLine(String.Format("ABehaviorNode {0}", pBehaviorNode.ToString()));
-                    Console.WriteLine(string.Format("parentNode, {0}", this.ToString()));
+                    // Console.WriteLine(String.Format("ABehaviorNode {0}", pBehaviorNode.ToString()));
+                    // Console.WriteLine(string.Format("parentNode, {0}", this.ToString()));
                     this.AddChild(pBehaviorNode);
                 }
-                // if (StringUtils::StringEqual(c->name(), kStrAttachment)) {
-                //     bHasEvents |= this->load_attachment(version, agentType, bHasEvents, c);
-                
+                else if(elementName == kStrAttachment){
+                    this.load_attachments(agentType, nodeEle);
                 }
+                else if (elementName == kStrProperty){
+                    this.load_properties(nodeEle);
+                }
+            }
+            
+        }
+
+        protected void load_attachments(string agentType, XElement node){
+            XAttribute attrClass = node.Attribute(kStrClass);
+            XAttribute attrFlag = node.Attribute(kStrFlag);
+            string className = attrClass.Value;
+            string flagName = attrFlag.Value;
+            BehaviorNode pAttachment = Factory.Create(className);
+            pAttachment.load_properties_attachment_children(false, agentType, node);
+            this.AddAttach(pAttachment, flagName);
+        }
+
+        private void AddAttach(BehaviorNode pAttachment, string flagName){
+            if (flagName == "precondition"){
+                Precondition pPrecondition = (Precondition) pAttachment;
+                this.m_preconditions.Add(pPrecondition);
+                Console.WriteLine("name:" + this.GetClassName());
+                Console.WriteLine("pPrecondition" + pPrecondition);
+            }
         }
 
         protected virtual void loadMethod(string methodStr){
@@ -219,18 +236,10 @@ namespace MyBehavior{
             if (pBehaviorNode == null) {
                 Console.WriteLine(String.Format("invalid node class {0} /n" , className));
             }
-            Console.WriteLine(pBehaviorNode.ToString());
             pBehaviorNode.SetClassName(className);
-            pBehaviorNode.load_properties(ele);
-            pBehaviorNode.load_children(agentType, ele);
+            pBehaviorNode.SetAgentType(agentType);
+            pBehaviorNode.load_properties_attachment_children(true, agentType, ele);
             return pBehaviorNode;
-            // foreach(XAttribute attr in ele.Attributes()){
-            //     string Name = attr.Name.LocalName;
-            //     if (Name == kStrClass) {
-            //         .SetClassName(Name);
-            //     //if (Name == kStrId) node.Id = attr.Value;
-            //     }
-            // }
         }
     
         protected void load_properties(XElement eleNode){

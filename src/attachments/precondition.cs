@@ -20,14 +20,15 @@ namespace MyBehavior
 
         protected override void loadMethod(string methodStr)
         {
-            Console.WriteLine("PrecondtionLoadMethod");
+            Console.WriteLine("PrecondtionLoadMethod:" + methodStr);
             this.m_method = AgentMeta.ParseMethod(methodStr);
         }
 
         protected override bool Execute(Agent pAgent){
+            Console.WriteLine("PreconditionExecute");
             bool bValid = true;
             if (this.m_method != null){
-                bValid = this.m_method.run(pAgent, ref bValid);
+                bValid = this.m_method.runBool(pAgent);
             }
             return bValid;
         }

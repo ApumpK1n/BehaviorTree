@@ -24,7 +24,7 @@ namespace MyBehavior{
             foreach (XElement treeEle in xmlBehavior.Elements())
             {
                 this.ParseFirstNode(treeEle);
-                this.load_children(this.AgentType, treeEle);
+                this.load_properties_attachment_children(true, this.AgentType, treeEle);
             }
             return true;
         }
@@ -54,7 +54,6 @@ namespace MyBehavior{
             base.Init(node);
 
             int childrenCount = node.GetChildrenCount();
-            Console.WriteLine("Init" + childrenCount);
             if (childrenCount == 1)
             {
                 BehaviorNode childNode = node.GetChildByIndex(0);
@@ -65,14 +64,12 @@ namespace MyBehavior{
         }
 
         public override void AddChild(BehaviorTask pTask){
-            Console.WriteLine("AddChild");
             pTask.SetParent(this);
             this.m_root = pTask;
         }
         
         public override EBTStatus update(Agent pAgent, EBTStatus childStatus){
             if (this.m_root == null) return EBTStatus.BT_FAILURE;
-            Console.WriteLine("BehaviorTreeUpdate");
             EBTStatus result = this.m_root.exec(pAgent, childStatus);
             return result;
         }

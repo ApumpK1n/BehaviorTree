@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace MyBehavior{
@@ -126,7 +127,7 @@ namespace MyBehavior{
             int childrenCount = node.GetChildrenCount();
             for (int i = 0; i < childrenCount; i++)
             {
-                BehaviorNode childNode = node.GetChildByIndex(0);
+                BehaviorNode childNode = node.GetChildByIndex(i);
                 BehaviorTask childTask = childNode.CreateAndInitTask();
                 
                 this.AddChild(childTask);

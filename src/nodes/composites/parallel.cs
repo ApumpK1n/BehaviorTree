@@ -58,6 +58,7 @@ namespace MyBehavior{
 
             for (int i = 0; i < children.Count; i++){
                 BehaviorTask pChild = children[i];
+                Console.WriteLine("Name:" + pChild.GetNode().GetClassName());
                 EBTStatus treeStatus = pChild.GetStatus();
                 if (treeStatus == EBTStatus.BT_RUNNING || treeStatus == EBTStatus.BT_INVALID)
                 {
@@ -100,7 +101,6 @@ namespace MyBehavior{
                     (this.m_succeedPolicy == ESUCCESS_POLICY.SUCCEED_ON_ONE && sawSuccess)){
                         result = EBTStatus.BT_SUCCESS;
                     }
-            Console.WriteLine("22222" + result);
             return result;
         }
 

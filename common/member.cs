@@ -21,7 +21,8 @@ namespace MyBehavior{
         public virtual void run(Agent agent) {
         }
 
-        public virtual void run(Agent agent, bool bValid) {
+        public virtual bool runBool(Agent agent) {
+            return true;
         }
 
         public virtual void SetValueCast(Agent pAgent){
