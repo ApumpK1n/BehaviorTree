@@ -1,0 +1,15 @@
+D:\BehaviorEditor\Behavior\bin\Debug\netcoreapp3.1\Behavior.exe
+D:\BehaviorEditor\Behavior\bin\Debug\netcoreapp3.1\Behavior.deps.json
+D:\BehaviorEditor\Behavior\bin\Debug\netcoreapp3.1\Behavior.runtimeconfig.json
+D:\BehaviorEditor\Behavior\bin\Debug\netcoreapp3.1\Behavior.runtimeconfig.dev.json
+D:\BehaviorEditor\Behavior\bin\Debug\netcoreapp3.1\Behavior.dll
+D:\BehaviorEditor\Behavior\bin\Debug\netcoreapp3.1\Behavior.pdb
+D:\BehaviorEditor\Behavior\obj\Debug\netcoreapp3.1\Behavior.csprojAssemblyReference.cache
+D:\BehaviorEditor\Behavior\obj\Debug\netcoreapp3.1\Behavior.Behavior.resources
+D:\BehaviorEditor\Behavior\obj\Debug\netcoreapp3.1\Behavior.csproj.GenerateResource.cache
+D:\BehaviorEditor\Behavior\obj\Debug\netcoreapp3.1\Behavior.AssemblyInfoInputs.cache
+D:\BehaviorEditor\Behavior\obj\Debug\netcoreapp3.1\Behavior.AssemblyInfo.cs
+D:\BehaviorEditor\Behavior\obj\Debug\netcoreapp3.1\Behavior.csproj.CoreCompileInputs.cache
+D:\BehaviorEditor\Behavior\obj\Debug\netcoreapp3.1\Behavior.dll
+D:\BehaviorEditor\Behavior\obj\Debug\netcoreapp3.1\Behavior.pdb
+D:\BehaviorEditor\Behavior\obj\Debug\netcoreapp3.1\Behavior.genruntimeconfig.cache
