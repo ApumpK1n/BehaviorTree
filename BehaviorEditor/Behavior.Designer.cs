@@ -1,4 +1,6 @@
-﻿namespace Behavior
+﻿using System.Diagnostics;
+
+namespace Behavior
 {
     partial class Behavior
     {
@@ -31,6 +33,7 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Behavior));
             this.IconImageList = new System.Windows.Forms.ImageList(this.components);
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.SuspendLayout();
             // 
             // IconImageList
@@ -45,6 +48,11 @@
             this.IconImageList.Images.SetKeyName(4, "ICON__0021_25b.png");
             this.IconImageList.Images.SetKeyName(5, "action.png");
             // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Name = "contextMenuBehaviorList";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
+            // 
             // Behavior
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
@@ -52,6 +60,7 @@
             this.ClientSize = new System.Drawing.Size(800, 455);
             this.Name = "Behavior";
             this.Text = "Behavior";
+            this.Load += new System.EventHandler(this.Behavior_Load);
             this.ResumeLayout(false);
 
         }
@@ -149,13 +158,16 @@
             this.BehaviorTree.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
             treeNodeBehavior,
             });
-            this.BehaviorTree.OnMouseUp += new System.Windows.Forms.MouseEventHandler(this.BehaviorTree_MouseUp);
+            this.BehaviorTree.MouseUp += new System.Windows.Forms.MouseEventHandler(this.BehaviorTree_MouseUp);
+            this.behaviorTreePanel = new BehaviorTreePanel();
             this.Controls.Add(this.BehaviorTree);
         }
 
         private System.Windows.Forms.TreeView NodetreeView;
         private System.Windows.Forms.ImageList IconImageList;
         private System.Windows.Forms.TreeView BehaviorTree;
+        private BehaviorTreePanel behaviorTreePanel;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
     }
 }
 

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace Behavior
@@ -22,8 +23,16 @@ namespace Behavior
 
             if (MouseButtons.Right == e.Button)
             {
-                Console.WriteLine("右键点击");
+                System.Diagnostics.Debug.WriteLine("右键点击");
+                //this.behaviorTreePanel.Show(this, new Point(e.X, e.Y));
+                this.contextMenuStrip1.Show(this, e.X, e.Y);
             }
         }
+
+        private void Behavior_Load(object sender, EventArgs e)
+        {
+
+        }
+
     }
 }
