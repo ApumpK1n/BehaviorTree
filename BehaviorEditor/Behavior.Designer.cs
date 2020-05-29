@@ -31,10 +31,21 @@ namespace Behavior
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Behavior));
             this.IconImageList = new System.Windows.Forms.ImageList(this.components);
-            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.ContextMenuBehaviorList = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
+            toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.ContextMenuBehaviorList.SuspendLayout();
             this.SuspendLayout();
+            // 
+            // toolStripMenuItem1
+            // 
+            toolStripMenuItem1.Name = "toolStripMenuItem1";
+            toolStripMenuItem1.Size = new System.Drawing.Size(136, 22);
+            toolStripMenuItem1.Text = "展开";
             // 
             // IconImageList
             // 
@@ -48,10 +59,26 @@ namespace Behavior
             this.IconImageList.Images.SetKeyName(4, "ICON__0021_25b.png");
             this.IconImageList.Images.SetKeyName(5, "action.png");
             // 
-            // contextMenuStrip1
+            // ContextMenuBehaviorList
             // 
-            this.contextMenuStrip1.Name = "contextMenuBehaviorList";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
+            this.ContextMenuBehaviorList.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            toolStripMenuItem1,
+            this.toolStripMenuItem2,
+            this.toolStripMenuItem3});
+            this.ContextMenuBehaviorList.Name = "contextMenuBehaviorList";
+            this.ContextMenuBehaviorList.Size = new System.Drawing.Size(137, 70);
+            // 
+            // toolStripMenuItem2
+            // 
+            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(136, 22);
+            this.toolStripMenuItem2.Text = "收起";
+            // 
+            // toolStripMenuItem3
+            // 
+            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(136, 22);
+            this.toolStripMenuItem3.Text = "新建行为树";
             // 
             // Behavior
             // 
@@ -60,7 +87,7 @@ namespace Behavior
             this.ClientSize = new System.Drawing.Size(800, 455);
             this.Name = "Behavior";
             this.Text = "Behavior";
-            this.Load += new System.EventHandler(this.Behavior_Load);
+            this.ContextMenuBehaviorList.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -159,15 +186,22 @@ namespace Behavior
             treeNodeBehavior,
             });
             this.BehaviorTree.MouseUp += new System.Windows.Forms.MouseEventHandler(this.BehaviorTree_MouseUp);
+            this.BehaviorTree.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.BehaviorTree_NodeMouseDoubleClick);
             this.behaviorTreePanel = new BehaviorTreePanel();
             this.Controls.Add(this.BehaviorTree);
+
+            // ContextMenuBehaviorList
+            this.ContextMenuBehaviorList.MouseClick += new System.Windows.Forms.MouseEventHandler(this.ContextMenuBehaviorList_MouseClick);
         }
 
         private System.Windows.Forms.TreeView NodetreeView;
         private System.Windows.Forms.ImageList IconImageList;
         private System.Windows.Forms.TreeView BehaviorTree;
         private BehaviorTreePanel behaviorTreePanel;
-        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.ContextMenuStrip ContextMenuBehaviorList;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem3;
     }
 }
 
